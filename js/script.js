@@ -1,75 +1,156 @@
-/**
- * Se detta som en grund att utgå ifrån.
- * Det är helt fritt att ändra och ta bort kod om ni
- * önskar lösa problemen med andra metoder.
- */
 
-let lcd = null; // displayen
+let buttons = document.getElementsByTagName("button");
 
-let memory = 0; // Lagrat/gamlat värdet från display
-let arithmetic = null; // Vilken beräkning som skall göras +,-, x eller /
+window.onload = function(){
 
-function init() {
-    lcd = document.getElementById('lcd');
-    let keyBoard = document.getElementById('keyBoard')
-    keyBoard.onclick = buttonClick;
-}
-
-/**
- * Händelsehanterare för kalkylatorns tangentbord
- */
-function buttonClick(e) {
-    let btn = e.target.id; //id för den tangent som tryckte ner
+    console.log(buttons);
+    for (let index = 0; index < buttons.length; index++) {
+        
+        buttons[index].addEventListener("click", (event)=>{
 
 
-    // kollar om siffertangent är nedtryckt
-    if (btn.substring(0, 1) === 'b') {
-        let digit = btn.substring(1, 2); // plockar ut siffran från id:et
-
-    } else { // Inte en siffertangent, övriga tangenter.
-
+            btnClick(event);
+            
+            
+        })
+        
     }
 }
 
-/**
- *  Lägger till siffra på display.
- */
-function addDigit(digit) {
+let lastClickedWasAnOperation = false;
+let calcArray = [];
+let currNumber = "";
+function btnClick(event){
+
+    clickedBTN = event.target; 
+
+
+
+    if (clickedBTN.id === "enter"){
+
+                // do complicated calculation
+        if (charisOperation(calcArray[calcArray.length-1])){
+            calcArray.pop();
+        }
+        else{
+            calcArray.push(currNumber);
+        }
+
+        console.log(calcArray);
+        const answer = theCalculation(calcArray);
+
+        document.getElementById("lcd").value = answer;
+
+
+    }
+    else if (clickedBTN.id === "clear"){
+
+        currNumber = "";
+        calcArray = [];
+        document.getElementById("lcd").value = "";
+    }
+
+    else{
+        if (charisOperation(clickedBTN.id)){
+
+            console.log("operation")
+            if (lastClickedWasAnOperation == false){
+                lastClickedWasAnOperation = true;
+                calcArray.push(currNumber);
+                currNumber = "";
+                calcArray.push(clickedBTN.innerHTML);
+                document.getElementById("lcd").value += clickedBTN.innerHTML;
+            }
+
+        }
+        else{
+            lastClickedWasAnOperation = false;
+            currNumber += clickedBTN.innerHTML;
+            document.getElementById("lcd").value += clickedBTN.innerHTML;
+        }
+
+    }
+
+
+} 
+
+function theCalculation(theCalc){
+
+    let onlyPlusAndMinusLeft = doDivAndMul(theCalc);
+    console.log("Div and muliplikation is done! " ,onlyPlusAndMinusLeft);
+    let answer = subAndAdd(onlyPlusAndMinusLeft);
+
+    console.log("sub and and?", answer);
+    return answer;
+
 }
 
-/**
- * Lägger till decimaltecken
- */
-function addComma() {
+function doDivAndMul(array){
+// 5+3*2+5/2
+    for (let index = 0; index < array.length; index++) {
+        
+        
+        if (array[index] == "x"){
+            
+            let before = array.slice(0, index-1);
+            let after = array.slice(index+2);
+
+            newValue = (Number(array[index-1])*Number(array[index+1])).toString();
+
+            before.push(newValue);
+            array = before.concat(after);
+            
+            index -= 2;
+
+        }
+        else if (array[index] == "/"){
+
+            let before = array.slice(0, index-1);
+            let after = array.slice(index+2);
+
+            newValue = (Number(array[index-1])/Number(array[index+1])).toString();
+
+            before.push(newValue);
+            array = before.concat(after);
+            
+            index -= 2;
+
+        }
+        
+        
+    }
+    return array;
+}
+
+function subAndAdd(array){
+
+    toReturn = 0;
+
+    toReturn += Number(array[0]);
+    for (let index = 1; index < array.length; index++) {
+
+        if (array[index] == "+"){
+            toReturn += Number(array[index+1])
+        }
+        else if (array[index] == "-")
+        {
+            toReturn -= Number(array[index+1])
+        }
+    }
+
+    return toReturn.toString();
+}
+
+function charisOperation(char){
+
+    let returnValue = false;
+     if (char == "add" || char == "sub" || char == "div"|| char == "mul"){
+
+        returnValue = true;
+     }
+
+     return returnValue;
 
 }
 
-/**
- * Sparar operator.
- * +, -, *, /
- */
-function setOperator(operator){
 
-}
-
-/**
- * Beräknar ovh visar resultatet på displayen.
- */
-function calculate() {
-
-}
-
-/** Rensar display */
-function clearLCD() {
-    lcd.value = '';
-    isComma = false;
-}
-
-/** Rensar allt, reset */
-function memClear(){
-    memory = 0;
-    arithmetic = null;
-    clearLCD();
-}
-
-window.onload = init;

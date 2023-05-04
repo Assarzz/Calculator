@@ -34,8 +34,18 @@ main input{
     border-radius:4px;
 }
 
-main section#keyBoard {
-    /** Grid eller liknade */
+#keyBoard {
+    display: grid;
+    justify-content: center;
+    
+}
+
+#keyBoard button{
+
+    
+    width: 75px;
+    height: 75px;
+    margin: 15px;
 }
 
 @media (max-width: 767px) {
