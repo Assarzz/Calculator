@@ -1,6 +1,7 @@
 
 let buttons = document.getElementsByTagName("button");
 
+
 window.onload = function(){
 
     console.log(buttons);
@@ -28,18 +29,26 @@ function btnClick(event){
 
     if (clickedBTN.id === "enter"){
 
+        console.log(calcArray);
+
                 // do complicated calculation
-        if (charisOperation(calcArray[calcArray.length-1])){
+        if (lastClickedWasAnOperation){
             calcArray.pop();
+            console.log("herererererer");
         }
         else{
             calcArray.push(currNumber);
+            
         }
 
         console.log(calcArray);
         const answer = theCalculation(calcArray);
 
         document.getElementById("lcd").value = answer;
+        
+        currNumber = answer;
+        calcArray = [];
+        lastClickedWasAnOperation = false;
 
 
     }
@@ -63,7 +72,14 @@ function btnClick(event){
             }
 
         }
+        else if (clickedBTN.id == "comma"){
+            console.log("comma!");
+            currNumber += ".";
+            document.getElementById("lcd").value += clickedBTN.innerHTML;
+        }
         else{
+            console.log("number")
+
             lastClickedWasAnOperation = false;
             currNumber += clickedBTN.innerHTML;
             document.getElementById("lcd").value += clickedBTN.innerHTML;
@@ -77,10 +93,10 @@ function btnClick(event){
 function theCalculation(theCalc){
 
     let onlyPlusAndMinusLeft = doDivAndMul(theCalc);
-    console.log("Div and muliplikation is done! " ,onlyPlusAndMinusLeft);
+    console.log("Multiplication and Division is done! " ,onlyPlusAndMinusLeft);
     let answer = subAndAdd(onlyPlusAndMinusLeft);
 
-    console.log("sub and and?", answer);
+    console.log("Addition and subtraction is done!", answer);
     return answer;
 
 }
@@ -95,7 +111,7 @@ function doDivAndMul(array){
             let before = array.slice(0, index-1);
             let after = array.slice(index+2);
 
-            newValue = (Number(array[index-1])*Number(array[index+1])).toString();
+            newValue = (Number(array[index-1])*Number(array[index+1])).toString(); // i could implement this myself but this is a very common operation.
 
             before.push(newValue);
             array = before.concat(after);

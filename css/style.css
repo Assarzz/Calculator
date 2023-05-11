@@ -36,16 +36,20 @@ main input{
 
 #keyBoard {
     display: grid;
-    justify-content: center;
     
+    border: thin black solid;
+    background-color: black;
+       
 }
 
 #keyBoard button{
 
     
-    width: 75px;
-    height: 75px;
-    margin: 15px;
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    font-size: 3.2vw;
+    
 }
 
 @media (max-width: 767px) {
