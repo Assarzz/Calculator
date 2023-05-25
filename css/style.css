@@ -13,13 +13,12 @@ html {
     font-size: 62.5%;
 }
 
-
 main input{
     width: 100%;
     font-size: 6rem;
     margin-bottom:10px;
     background-color: black;
-    color: green;
+    color: rgb(0, 255, 0);
     text-align: right;
     padding: 10px 4px 10px 4px;
     font-family: lcd;
@@ -36,14 +35,12 @@ main input{
 #keyBoard button{
     height: auto;
     font-size: 8rem;
-    
 }
 
 @media (max-width: 810px) {
 
     main input{
         font-size: 3.5rem;
-
     }
 }
 
@@ -51,12 +48,9 @@ main input{
 
     main input{
         font-size: 2rem;
-
     }
 
     #keyBoard button{
         font-size: 10vw;
-
     }
-
 }
