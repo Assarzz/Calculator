@@ -13,17 +13,10 @@ html {
     font-size: 62.5%;
 }
 
-body {
-
-}
-
-main {
-
-}
 
 main input{
     width: 100%;
-    font-size: 3.5rem;
+    font-size: 6rem;
     margin-bottom:10px;
     background-color: black;
     color: green;
@@ -36,38 +29,33 @@ main input{
 
 #keyBoard {
     display: grid;
-    
     border: thin black solid;
-    background-color: black;
-       
+    background-color: black;  
 }
 
 #keyBoard button{
-
-    
-    width: 100%;
     height: auto;
-    padding: 10px;
-    font-size: 3.2vw;
+    font-size: 8rem;
     
 }
 
-@media (max-width: 767px) {
-    body {
-
-    }
-
-    main {
-
-    }
+@media (max-width: 810px) {
 
     main input{
+        font-size: 3.5rem;
 
     }
 }
 
-@media (max-width: 339px) {
-    main {
+@media (max-width: 500px) {
+
+    main input{
+        font-size: 2rem;
+
+    }
+
+    #keyBoard button{
+        font-size: 10vw;
 
     }
 

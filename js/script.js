@@ -117,6 +117,7 @@ function btnClick(event) {
 
 function theCalculation(theCalc) { // This function takes array of numbers and operations and returns one number.
 
+    console.log(calcArray)
     
     // According to precedence rules, multiplication and division come before addtion and subtraction; therefore, i do these in two separate steps.
     let onlyPlusAndMinusLeft = doDivAndMul(theCalc);
@@ -130,7 +131,7 @@ function doDivAndMul(array) {
     for (let index = 0; index < array.length; index++) {
 
 
-        if (array[index].value == "x") { // I look for Arraitems with value of "x". if i find one i know the the item before and after should be multiplied. "x" will never be found first or last, so an exception will not be thrown.
+        if (array[index].value == "x") { // I look for Arrayitems with value of "x". if i find one i know the the item before and after should be multiplied. "x" will never be found first or last, so an exception will not be thrown.
 
             let before = array.slice(0, index - 1); // the arry before and after the two numbers should be joined with the new product in the middle.
             let after = array.slice(index + 2);
