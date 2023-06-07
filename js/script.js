@@ -10,11 +10,6 @@ class ArrayItem {
     }
 }
 
-let newtemp = [] 
-for (let index = 0; index < assarstemp.length; index++) {
-    newtemp.push(assarstemp[index].innerHTML)
-    
-}
 
 window.onload = function () {
 
