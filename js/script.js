@@ -54,7 +54,7 @@ function btnClick(event) {
         }
         document.getElementById("lcd").value = answer;
         currNumberItem = new ArrayItem("Number", answer, comma, stringAnswer); // by putting the calculated answer as the currant item and emptying the calcArray, I can use the calculated answer in new calcualtion.
-        
+        calcArray = [];
         lastClickedWasAnOperation = false;
         clickMustBeOperation = true;
 
